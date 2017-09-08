@@ -101,8 +101,8 @@
     // helper functions
     numeral._ = _ = {
         // formats numbers separators, decimals places, signs, abbreviations
-        numberToFormat: function(value, format, roundingFunction) {
-            var locale = locales[numeral.options.currentLocale],
+        numberToFormat: function(value, format, roundingFunction, useEnglish) {
+            var locale = useEnglish ? locales['en'] : locales[numeral.options.currentLocale],
                 negP = false,
                 optDec = false,
                 leadingCount = 0,
@@ -573,7 +573,7 @@
         clone: function() {
             return numeral(this);
         },
-        format: function(inputString, roundingFunction) {
+        format: function(inputString, roundingFunction, useEnglish) {
             var value = this._value,
                 format = inputString || options.defaultFormat,
                 kind,
@@ -599,7 +599,7 @@
 
                 formatFunction = formatFunction || numeral._.numberToFormat;
 
-                output = formatFunction(value, format, roundingFunction);
+                output = formatFunction(value, format, roundingFunction, useEnglish);
             }
 
             return output;
