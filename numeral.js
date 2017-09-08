@@ -51,7 +51,7 @@
         this._value = number;
     }
 
-    numeral = function(input) {
+    numeral = function(input, useLocale) {
         var value,
             kind,
             unformatFunction,
@@ -81,7 +81,7 @@
 
                 unformatFunction = unformatFunction || numeral._.stringToNumber;
 
-                value = unformatFunction(input);
+                value = unformatFunction(input, useLocale);
             }
         } else {
             value = Number(input)|| null;
@@ -260,8 +260,8 @@
             return output;
         },
         // unformats numbers separators, decimals places, signs, abbreviations
-        stringToNumber: function(string) {
-            var locale = locales[options.currentLocale],
+        stringToNumber: function(string, useLocale) {
+            var locale = useLocale ? locales[useLocale] : locales[options.currentLocale],
                 stringOriginal = string,
                 abbreviations = {
                     thousand: 3,
